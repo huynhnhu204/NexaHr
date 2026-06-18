@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: nexahr-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-nexahr}
+      MYSQL_DATABASE: nexahr_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - nexahr_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./nexahr-backend
+      dockerfile: Dockerfile
+    container_name: nexahr-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql,prod
+      DB_URL: jdbc:mysql://mysql:3306/nexahr_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD:-nexahr}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-256-bit-secret-key}
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./nexahr-frontend
+      dockerfile: Dockerfile
+    container_name: nexahr-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  nexahr_mysql_data:

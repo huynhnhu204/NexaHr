@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "NexaHR",
+    "slug": "nexahr-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0F172A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nexahr.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1E3A8A"
+      },
+      "package": "com.nexahr.mobile"
+    }
+  }
+}

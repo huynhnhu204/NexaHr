@@ -1,0 +1,48 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+**/application-local.properties
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+
+# Java / Maven
+nexahr-backend/target/
+*.class
+*.jar
+!nexahr-backend/.mvn/wrapper/maven-wrapper.jar
+
+# Uploads (runtime data)
+nexahr-backend/uploads/
+uploads/
+
+# Playwright
+nexahr-frontend/test-results/
+nexahr-frontend/playwright-report/
+nexahr-frontend/blob-report/
+
+# Expo
+nexahr-mobile/.expo/
+nexahr-mobile/dist/
+
+# Misc
+*.local
+coverage/
